@@ -1,0 +1,30 @@
+#include <stdio.h>
+int sou(int arr[], int k)
+{
+	int left = 0;
+	int right = 4;
+	while ((arr[left] != k) && (arr[right] != k) && left <= right)
+	{
+		if (arr[(left + right) / 2] != k)
+		{
+			left++;
+			right--;
+		}
+		else
+			return (left + right) / 2 + 1;
+	}
+	if (arr[left] == k)
+		return left + 1;                                       //题目中遇到了Class,待改进
+	else if (arr[right] == k)
+		return right + 1;
+	else                                          //重复元素数组，二分查找，第一次找到该元素，则返回数组元素下标+1
+		return 6;
+}
+int main()
+{
+	int arr[5] = { 1, 2, 4, 4, 5 };
+	int k = 4;
+	int ret = sou(arr, k);
+	printf("%d\n", ret);
+	return 0;
+}
