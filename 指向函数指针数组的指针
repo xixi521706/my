@@ -1,0 +1,16 @@
+//定义一个指针*pparr，指针指向（存放地址）数组[]，数组每个元素为int(*)(int,int),,即为int(*(*pparr)[4])()
+int Add(int x,int y)
+{
+    return x+y;
+}
+int Sub(int x,int y)
+{
+    return x-y;
+}
+int main()
+{
+    
+    int(*parr[])(int,int)={Add,Sub};
+     int (*(*pparr)[])(int,int)=&arr;    //
+    return 0;
+}
