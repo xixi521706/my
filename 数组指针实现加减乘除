@@ -1,0 +1,48 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int Add(int x, int y)
+{
+	return x + y;
+}
+int Sub(int x, int y)
+{
+	return x - y;
+}
+int Mul(int x, int y)
+{
+	return x * y;
+}
+int Div(int x, int y)
+{
+	return x / y;
+}
+int Xor(int x, int y)
+{
+	return x ^ y;
+}
+int main()
+{
+	int input = 0;
+	do
+	{
+		printf("please input:>\n");
+		scanf("%d", &input);
+		if (input >= 1 && input <= 5)
+		{
+			int(*parr[5])(int, int) = { Add, Sub, Mul, Div, Xor };
+			int x = 0;
+			int y = 0;
+			printf("input your num\n");
+			scanf("%d%d", &x, &y);
+			printf("result=%d\n", parr[input - 1](x, y));
+		}
+		else if (input > 5)
+			printf("please reinput\n");
+		else
+		{
+			printf("exit\n");
+			break;                                         //结束循环
+		}
+	} while (input);
+	return 0;
+}
