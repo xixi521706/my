@@ -1,0 +1,19 @@
+//在军队中，利用士兵排队方式可以算出总人数。比如，分别以排队方式3，5，7排队，根据尾部数字，求出总人数。假设三种方式尾部人数分别为a,b,c。
+//用函数实现总人数的计算，并返回，如果不能算出，输出错误.假设总人数在10-100之间
+
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+	int a, b, c, i;
+	scanf("%d%d%d", &a, &b, &c);
+	for (i = 10; i < 100; i++)
+	{
+		if ((i % 3 == a) && (i % 5 == b) && (i % 7 == c))
+		    printf("总人数=%d\n", i);
+		if (i >= 100)
+			printf("without reslut\n");
+	}
+	return 0;
+}
