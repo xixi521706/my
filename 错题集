@@ -1,0 +1,21 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int i, k;
+	int* arr = (int*)malloc(3 * sizeof(int));
+	scanf("%d %d %d %d", arr,arr[1],arr[2],&k);
+//	scanf("%d", &k);
+	for (i = 0; i<2; i++)
+	{
+		{
+		for (int j = i; j<2; j++)
+			if (arr[i] + arr[j] == k)
+				printf("%d %d", i + 1, j + 1);
+			else
+				printf("no\n");
+		}
+	}
+	return 0;
+}
