@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+void sex();
+int x=3;
+void main()
+{
+    for(int i=0;i<x;i++)   //x为函数外部的局部变量
+       sex();
+    printf("\n");
+}
+void sex()
+{
+     static int x=1;      //static 修饰的变量x和全局变量x不是同一个地址，没有关联。知有进入变量内部变量有效
+     x *= x+1;
+     printf("%d ",x);    //执行了三次
+}
