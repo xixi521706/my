@@ -1,0 +1,22 @@
+//假定又一个数，里面的元素为纸币的面值，在给定一个数字，求最少需要几张该数组中的面币。如果有返回结果，没有返回-1
+
+int find(int arr[],int len,int num)
+{
+    int ret=0;
+    for(int i=0;i<len && num/arr[i]>0;i=num%arr[i])
+    {
+         num%=arr[i];
+         ret +=num/arr[i]
+    }
+    return num==0?ret:-1;
+}
+int main()
+{
+    int arr[]={6,5,11};
+    int len=sizeof(arr)/sizeof(arr[0]);
+    int num=0;
+    scanf("%d",&num);
+    int ret=find(arr,len,num);
+    printf("%d\n",ret);
+    return 0;
+}
