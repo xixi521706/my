@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+
+//void is_cmp(char* s,char* t)
+{
+     int m=lenstr(s);
+     int n=lenstr(t);
+     char tmp[]="";
+     for(int i=0;i<m-n;i++)                
+     {
+         if(strcmp(strcpy(tmp,s+i,n)))
+         return 1
+     }
+//     return 0;
+}
+ 
+void is_cmp(char* s,char* t)
+{
+    int i=1,j=1,k=i;
+    while(i<=strlen(s) && j<=strlen(t))
+    {
+        if(s[i] == t[j])
+        {
+            i++;
+            j++;
+        }
+        else
+        {
+            k++;               //检查下一个子串 ,每检查一次子串i的值需要返回上次执行的i+1处，如果之前判断的有j++个值相等，则造成了资源浪费
+            i=k;
+            j=1;
+        }
+    }
+    if(j>strlen(t))
+        return k;
+    else
+        return 0;
+}
+int main()
+{
+    char s[]="goolgogoolgegoo";
+    char t[]="goolge";
+    is_cmp(s,t);
+    return 0;
+}
+
