@@ -1,0 +1,27 @@
+int idex(string s,string t,int next[6])
+{
+    int i=1,j=1;
+    while(i<=strlen(s) && j<=strlen(t))
+    {
+        if(j == 0 || s[i] == t[j])  //next数组特殊状态,即第一个元素都不匹配,则i++&& j++
+        {
+            i++;
+            j++;
+        }
+        else                       //模式串第j个元素不同，则j返回对应next[j]处比较，这样i就不用回溯
+        j=next[j];
+    }
+    if(j>strlen(t))                //完全匹配成功后j值变成strlen(t)+1
+        return i-strlen(t);
+    else
+        return 0;
+}
+int main()
+{
+    string s="goolgogoolgego";
+    string t="goolge";
+    int next[7]={ ,0,1,1,1,2,1};               //模式串数据为6，则第j个元素不匹配有状态6，但生成的数组next【7】，首元素不用。
+    int ret=index(s,t,next);
+    printf("%d\n",ret);
+    return 0;
+}
