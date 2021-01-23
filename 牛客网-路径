@@ -1,0 +1,34 @@
+//table       起点  *   *   *   *   
+//              *   *   *   *   *   
+//              *   *   *   *   *    
+//              *   *   *   *  终点
+//      游戏中人物角色的移动路径，每次只能往左或者往右移动，问从起点到终点可以有有几种路径？
+
+//解决思路： 起点  1     1     1        1
+//            1   2     3     4         5
+//            1   3     6     10        dp[m-1][n]
+//            1   4     10  dp[m][n-1]  dp[m][n]
+//如果时单行或者单列，往下都是一种走法
+
+
+#define M 5
+#define N 5
+#include <stdio.h>
+
+int find(int dp[][N],int m,int n)
+{
+    for(int i=1;i<=m;i++)  dp[i][1]=1;
+    for(int j=1;j<=n;j++)  dp[1][j]=1;
+    for(i=1;i<m;i++)
+        for(j=1;j<n;j++)
+            dp[i+1][j+1]=dp[i][j+1]+dp[i+1][j];
+    return dp[m][n];
+}
+
+int main()
+{
+    int dp[M][N]={0};
+    int ret=find_dp(dp,M,N);
+    printf("%d\n",ret);
+    return 0;
+}
