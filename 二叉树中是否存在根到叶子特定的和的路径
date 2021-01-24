@@ -1,0 +1,53 @@
+
+struct tree_node{
+    int data;
+    struct treenode* lchild;
+    struct treenode* rchild;
+}*tnode,treenode;
+
+void insertnode(tnode &L)
+{
+    int input=0;
+    scanf("%d",&input);
+    treenode* p=null,cur=L;
+    while(input != 9999)
+    {
+        if(input = '#')
+        {
+            cur->lchild = null;
+            scanf("%d",&input);
+        }
+        else
+        {
+            p=(treenode*)malloc(sizeof(treenode));
+            cur->lchild=p;
+            p->data=input;
+            scanf("%d",&input);
+         }
+        if(input = '#')
+        {
+            cur->rchild = null;
+            scanf("%d",&input);
+        }
+        else
+        {
+            p=(treenode*)malloc(sizeof(treenode));
+            cur->rchild=p;
+            p->data=input;
+            scanf("%d",&input);
+         }
+    }
+}
+void inittnode(tnode &L)
+{
+    L->lchild=null;
+    L->rchild=null;
+}
+int main()
+{
+    tnode L=(tnode)malloc(sizeof(treenode));
+    inittnode(L);
+    insertnode(L);
+    levalorder(L);
+    return 0;
+}
