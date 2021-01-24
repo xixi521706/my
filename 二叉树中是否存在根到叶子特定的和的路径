@@ -9,34 +9,37 @@ void insertnode(tnode &L)
 {
     int input=0;
     scanf("%d",&input);
-    treenode* p=null,cur=L;
-    while(input != 9999)
+    if(input != 9999)
+        return;
+    treenode* cur=L,p=null;
+    if(input = (int)'#')
     {
-        if(input = '#')
-        {
-            cur->lchild = null;
-            scanf("%d",&input);
-        }
-        else
-        {
-            p=(treenode*)malloc(sizeof(treenode));
-            cur->lchild=p;
-            p->data=input;
-            scanf("%d",&input);
-         }
-        if(input = '#')
-        {
-            cur->rchild = null;
-            scanf("%d",&input);
-        }
-        else
-        {
-            p=(treenode*)malloc(sizeof(treenode));
-            cur->rchild=p;
-            p->data=input;
-            scanf("%d",&input);
-         }
+        L->lchild=p;
+        scanf("%d",&input);
     }
+    else
+    {
+        L->lchild=p;
+        p->data=input;
+        cur=p;
+        insettnode(cur);
+        scanf("%d",&input);
+    }
+     if(input = (int)'#')
+    {
+        L->rchild=p;
+        scanf("%d",&input);
+    }
+    else
+    {
+        L->rchild=p;
+        p->data=input;
+        cur=p;
+        insettnode(cur);
+        scanf("%d",&input);
+    }
+    
+        
 }
 void inittnode(tnode &L)
 {
