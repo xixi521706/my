@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+struct treenode{
+    int val;
+    struct treenode* lchild;
+    struct treenode* rchild;
+};
+
+treenode* mergetree(treenode* l1,treenode* l2)
+{
+    if(l1 == nullptr)
+        return l2;
+    else if(l2 == nullptr)
+        return l1;
+    else                                      //函数递归实现newtree每个节点VAL值
+    {
+        treenode* node=new treenode(0);
+        node->val=l1->val+l2->val;
+        node->lchild=mergetree(l1->lchild,l2->lchild);
+        node->rchild=mergetree(l1->rchild,k2->rchild);
+    }
+    return node;
+}
