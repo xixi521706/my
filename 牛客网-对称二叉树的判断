@@ -1,0 +1,49 @@
+//递归法
+
+struct node{
+    int val;
+    struct node* lchild;
+    struct node* rchild;
+};
+
+int is_mirror(struct node* one,struct node* two)
+{
+    if(one == nullptr && two == nullptr)
+        return 1;
+    if(one == nullptr || two == nullptr || one->val != two ->val)
+        return 0;
+    return is_mirror(one->lchild,two->rchild) && is_mirror(one->child,two->lchild);
+}
+int main(struct node* root)
+{
+    if(root = nullptr)
+        return 1;
+    int ret=is_mirror(root->lchild,root->rchild);
+    return 0;
+}
+
+//迭代法
+struct quene
+{
+    int size;
+    struct node[0];
+}
+int is_mirror(struct node* root,quene q)    //队列依次出站站两个左右孩子，访问者两个孩子的四个孩子比较。直到队列为空结束
+{
+    quene.add(s,root->lchild);
+    quene.add(s,root->rchild);
+    while(!is_empty(s))
+    {
+     struct node* one=quene.remove();
+     struct node* two=quene.remove();
+     if(one == null && two == null)
+         continue;
+     if(one == null || two == null || one->val != two->val)
+         return 0;
+     quene.add(q,one->lchild);
+     quene.add(q,two->rchild);
+     quene.add(q,one->rchild);
+     quene.add(q,two->lchild);
+    }
+    return 1;
+}
