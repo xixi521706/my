@@ -1,0 +1,28 @@
+stack<int> stack1;
+stack<int> stack2;
+
+void push_stack(stack<int>stack1,struct node stacknode)
+{
+    stack1[top++]=stacknode;
+    
+}
+int pop_stack(stack<int>stack1,stack<int>stack2)
+{
+    if(is_empty(stack1))
+        return 0;
+    if(is_empty(stack2))
+    {
+        while(!is_empty(stack1))
+        {
+             stack2[top++]=stack1[top];
+             stack1.pop();        
+        }
+    }
+    int ret=stack2.top();
+    stack2.pop();
+    teturn ret;
+}
+int main()
+{
+    return 0;
+}
