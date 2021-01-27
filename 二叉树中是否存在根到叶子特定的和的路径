@@ -1,56 +1,34 @@
-
-struct tree_node{
-    int data;
+struct treenode{
+    int val;
     struct treenode* lchild;
     struct treenode* rchild;
-}*tnode,treenode;
+}treenode;
 
-void insertnode(tnode &L)
+vector<vector<int>> res=0;                           //全局变量存放路径，stack{tmp[],int n};
+vector<int>tmp;                                      //用于存放临时路径,tmp[]
+void dfs(struct treenode* root,int sum,int cnt)
 {
-    int input=0;
-    scanf("%d",&input);
-    if(input != 9999)
+    int cnt=0;
+    if(root==null)
         return;
-    treenode* cur=L,p=null;
-    if(input = (int)'#')
+    cnt+=root->val;                                  //节点val和
+    tmp.push_back(root->val);                         //节点放进tmp
+    if(root->lchild == null && root->rchild == null)  //访问到当前节点为叶子节点时，查询路径和
     {
-        L->lchild=p;
-        scanf("%d",&input);
+        if(cnt == sum)
+            res.push_back(tmp);                      //路径和等于sum时，tmp数组节点放入res中
     }
-    else
+    else                                             //未访问到叶子节点时，继续访问节点的左右子节点
     {
-        L->lchild=p;
-        p->data=input;
-        cur=p;
-        insettnode(cur);
-        scanf("%d",&input);
+        dfs(root->lchild,sum,cnt);
+        dfs(root->rchild,sum,cnt);
     }
-     if(input = (int)'#')
-    {
-        L->rchild=p;
-        scanf("%d",&input);
-    }
-    else
-    {
-        L->rchild=p;
-        p->data=input;
-        cur=p;
-        insettnode(cur);
-        scanf("%d",&input);
-    }
-    
-        
+    cnt-=tmp[tmp.size-1];                             //叶子节点值的和cnt不等于sum时，cnt减去最后依次放到tmp中的值
+    tmp.pop_back();                                   //去掉tmp中最后叶子的元素
 }
-void inittnode(tnode &L)
+int main(struct treenode* root,int sum)
 {
-    L->lchild=null;
-    L->rchild=null;
+    dfs(root,sum,0);
+    return res;
 }
-int main()
-{
-    tnode L=(tnode)malloc(sizeof(treenode));
-    inittnode(L);
-    insertnode(L);
-    levalorder(L);
-    return 0;
-}
+
