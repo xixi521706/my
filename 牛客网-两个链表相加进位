@@ -1,0 +1,44 @@
+struct node{               //节点型的结构体
+    int val;
+    struct node* next
+};
+
+struct node* addlinklist(struct node* head1,struct node* head2)  
+{
+    stack<int> st1;        //栈存储每个节点的值，用于每次相加进位             
+    stack<int> st2;
+    node *p=head1,*q=head2;
+    while(p!=nullptr && q!=nullptr)
+    {
+        st1.push(p->val);      //stack成员函数接口
+        st2.push(q->val);
+        p=p->next;
+        q=q->next;
+    }
+    node* vhead=new node(-1);    //new一个头节点
+    int carry=0,a=0,b=0;
+    while(!st1.isempty() || !st2.isempty() || carry != 0)
+    {
+        if(!st1.isempty())
+        {
+            a=st1[--top];
+            st1.pop();
+        }
+        if(!st2.isempty())
+        {
+            b=st2[--top];
+            st2.pop();
+        }
+        int sum=a+b+carry;
+        int ans=sum%10;
+        carry=sum/10;
+        node* cur=new node(ans);    //头插法。因为出栈的节点值时从后往前得到的，所以新节点每次需要头插
+        cur->next=vhead->next;
+        vhead->next=cur;
+    }
+}
+
+int main()
+{
+    return 0;
+}
