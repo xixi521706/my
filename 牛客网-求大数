@@ -1,0 +1,44 @@
+#
+class mystring{
+private:
+    char* dig;
+public:
+    mystring(char* na='\0') {
+        int len=strlen(na);
+        dig=new char[len+1];
+        strcpy(dig,na);
+    }
+    mystrint(const mtstring & another){
+         int len=strlen(another.c_str);
+         dig=new char[len+1];
+         strcpy(dig,another.c_str);
+    }
+    mystring & operator+(const mystrig & other,const mystring & another){
+         delete[] dif;
+         if(strlen(other.c_str) < strlen(another.c_str))
+         {
+              int len=strlen(another.c_str)
+              dig=new char[len+1];
+              while(*other.c_str ! '\0')
+                   *dig++=*another.c_strstr++ + *other.c_str++;
+              while(*another.c_str ! '\0')
+                   *dig++=*another.c_strstr;
+         }
+         return *this;
+    }
+    char* c_str() {
+         return dig;
+    }
+    ~mystring(){
+         delete [] dig;
+    }
+};
+
+int main()
+{
+    mystring str1("1246"),str2("36896");
+    mystring str3;
+    str3=str1+str2;
+    cout<<str3.c_str<<endl;
+    return 0;
+}
