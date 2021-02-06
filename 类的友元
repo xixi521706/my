@@ -1,0 +1,39 @@
+#include <string.h>
+#include <iostream>
+using namespace std;
+
+class Mail;
+class Sender{
+public:
+	Sender(char * na = NULL)
+		:addr (na){}
+	void dis(Mail & m);       //类友元函数类外声明，如果否则无法给Mail分配空间
+private:
+	const char* addr;
+};
+
+class Mail{
+public:
+	Mail(char* ti, char* con, char* tim)
+		:title(ti), contends(con), time(tim){}
+	friend void Sender::dis(Mail & mail);   //类友元函数
+private:
+	char* title;
+	char* contends;
+	char* time;
+};
+void Sender::dis(Mail & mail){
+	cout << this->addr << endl;
+	cout << mail.title << endl;
+	cout << mail.contends << endl;
+	cout << mail.time << endl;
+}
+int main()
+{
+	Sender send("dudu@qq.com");
+	Mail mail("开会", "升职加薪", "2021.5");
+	Mail mail2("开玩笑", "请勿自嗨", "2021.5");
+	send.dis(mail);
+	send.dis(mail2);
+	return 0;
+}
