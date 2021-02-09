@@ -1,0 +1,31 @@
+//两个二叉树序列：
+//前序遍历序列： {1,2,4,7,3,5,6,8}
+//中序遍历序列： {4,7,2,1,5,3,8,6}
+#include <stdio.h>
+
+struct treenode{
+       int val;
+       treenode*left;
+       treenode*right;
+       treenode(int x):val(va),left(NULL),right(NULL) {}
+};
+
+treenode* rebuilttreenode(vector<int> &pre,pre_left,pre_right,vector<int> &vin,vin_left,vin_right)
+{
+       if(pre_left > pre_right || vin_left > vin_right)
+             return nullptr;
+       int i=0,root_index=vin_left;
+       for(;i<=vin_right;i++)                               //vin中存在根节点返回i
+             if(root_index==vin[i])
+                   break;
+       root_index=i;                                        //每次找到VIN中根节点的位置I
+       treenode* root=new treenode(pre[pre_first]);
+       root->left=rebuilttreenode(pre,pre_left+1,pre_left+root-index-vin_left,vin,vin_left,root_index-1);     //递归 左子树
+       root->right=rebuilttreenode(pre,vin_left+root-index-vin_left+1,pre_right,vin,root_indext+1,vin_right); //递归 右子树
+       return root;
+}
+
+struct treenode* reconstructtreenode(vector<int> prce,vector<int> vin)
+{
+       return rebuilttreenode(pre,0,pre.size()-1,vin,0,vin.size());
+}
