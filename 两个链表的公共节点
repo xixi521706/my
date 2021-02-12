@@ -1,0 +1,21 @@
+struct node{                //类对象的初始化
+     int val;
+     struct node* next;
+public:
+       node(int x)
+            :val(x),next=null
+       {}
+};
+
+node* firstcommonnode(node* phead1,node* phead2)   //phead1  phead2长度不同所以同时遍历时肯定找不到公共节点，此时ta指向phead2，tb指向phead1，再次同时遍历，此时如果ta==tb，则返回
+{
+     node* ta=phead1,* tb=phead2;
+     if(ta == null || tb==null)
+          return null;
+     while(ta != tb)
+     {
+          ta=ta?ta.next:phead2;     //当ta值为空时，此时ta指向phead1
+          tb=tb?tb.next:phead1;
+     }
+     return ta;
+}
