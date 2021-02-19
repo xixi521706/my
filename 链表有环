@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+class linklist{
+private:
+	int val;
+	linklist* next;
+	static linklist* head;
+public:
+	linklist(int i){ val = i; next = NULL; }
+	~linklist(){
+		linklist* h = head;
+		while (h != NULL){
+			h = h->next;
+			delete head;
+			head = h;
+		}
+	}
+	void insert(int i){
+		if (head == NULL)
+			head = new linklist(999);
+		next = new linklist(i);
+		next->next = NULL;
+	}
+	bool iscircle(linklist & another);
+};
+
+bool linklist::iscircle(linklist& L)
+{
+	if (L.next == NULL || L.next->next == NULL)
+		return false;
+	linklist* q=L.next->next, *s = L.next;
+	while (q != NULL && s != NULL)
+	{
+		if (q = s)
+			return true;
+		q = q->next->next;
+		s = s->next;
+	}
+	return false;
+}
+int main()
+{
+	linklist L(999);
+	for (int i = 0; i < 20; i++)
+	{
+		L.insert(i);
+	}
+	L.iscircle(L);
+	return 0;
+}
