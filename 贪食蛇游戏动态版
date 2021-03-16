@@ -1,0 +1,147 @@
+//game.cpp
+#include "Wall.h"
+#include "Snake.h"
+#include "Food.h"
+#include <conio.h>
+#include <Windows.h>
+
+int main(){
+	bool isdeath = false;
+	char prekey = NULL;
+	srand((unsigned int)time(NULL));
+	Wall wall;
+	wall.WallInit();
+	Food food(wall);
+	food.setFood(wall);
+	Snake sna(wall,food);
+	sna.SnakeInit();
+	sna.deletepoint();
+	wall.showWall();
+
+	while (!isdeath){ 
+		char key = _getch();       //获取输入字符 #include <conio.h>
+		if (prekey == NULL && key == sna.LEFT){
+			continue;
+		}
+		do{                       //未获得玩家输入，自动获得上次输入值
+		    if (key == sna.DOWN || key == sna.UP || key == sna.LEFT || key == sna.RIGHT){    //输入值范围w,s,a,d
+			    	if (prekey == sna.DOWN &&key == sna.UP || prekey == sna.UP &&key == sna.DOWN || prekey == sna.LEFT &&key == sna.RIGHT || prekey == sna.RIGHT &&key == sna.LEFT){
+			    		key = prekey;   //按键冲突，强制执行上一次移动
+			    	}
+			    	else        //按键为冲突，刷新当前key值，执行移动
+			    		prekey = key;
+			    	if (!sna.snakemove(key)){       //判断当次移动后蛇是否死亡
+			    		isdeath = true;
+			    		break;
+			    	}
+			    	else{                           //蛇未死亡，刷屏，显示，暂停，获得下次输入(while)
+			    		system("cls");
+			    		wall.showWall();
+			    		Sleep(500);
+			    	}
+		  }
+      else                       //输入其他值时，默认输入上次数据
+			   	key = prekey; 
+	  } while (!_kbhit());     //输入检测，未输入返回值0,move继续执行上一次移动
+	}
+	return 0;
+}
+
+//Snake.cpp
+#include "Snake.h"
+
+Snake::Snake(Wall & tmpwall,Food & tmpfood) :wall(tmpwall),food(tmpfood){
+	ph = NULL;
+	isRool = false;
+}
+void Snake::SnakeInit(){
+	destroy();
+	addpoint(4, 4);
+	addpoint(4, 5);
+	addpoint(4, 6);
+	addpoint(4, 7);
+}
+void Snake::destroy(){
+	if (ph == NULL)
+		return;
+	while (ph != NULL){
+		point* pcur = ph->next;
+		delete ph;
+		ph = pcur;
+	}
+}
+void Snake::addpoint(int x, int y){
+	point* newpoint = new point;
+	newpoint->x = x;
+	newpoint->y = y;
+	newpoint->next = NULL;
+	if (ph != NULL)
+		wall.setWall(ph->x, ph->y, '=');
+	newpoint->next = ph;
+	ph = newpoint;
+	wall.setWall(ph->x, ph->y, '@');
+}
+void Snake::deletepoint(){
+	if (ph == NULL && ph->next == NULL)
+		return;
+	point* pcur = ph->next;
+	point* pre = ph;
+	while (pcur->next != NULL)
+	{
+		pre = pre->next;
+		pcur = pcur->next;		
+	}
+	wall.setWall(pcur->x, pcur->y, ' ');
+	delete pcur;
+	pcur = NULL;
+	pre->next = NULL;
+}
+bool Snake::snakemove(char ch){
+	int movex = ph->x;
+	int movey = ph->y;
+	switch (ch)
+	{
+	case UP:
+		movex--;
+		break;
+	case DOWN:
+		movex++;
+		break;
+	case LEFT:
+		movey--;
+		break;
+	case RIGHT:
+		movey++;
+		break;
+	default:
+		break;
+	}
+	point* pcur = ph->next;
+	while (pcur->next != NULL){
+		pcur = pcur->next;
+	}
+	//移动状态判断，1rool，2死亡
+	if (movex == pcur->x && movey == pcur->y){        
+		isRool = true;
+	}
+	else {
+		if (wall.getWall(movex, movey) == '*' || wall.getWall(movex, movey) == '='){
+			cout << "gameover" << endl;
+			return false;
+		}
+	}
+	//移动成功 分两种
+	//1吃到食物，2未吃到
+	if (wall.getWall(movex, movey) == '#'){
+		food.setFood(wall);
+		addpoint(movex, movey);
+	}
+	else{
+		addpoint(movex, movey);
+		deletepoint();
+		if (isRool == true){
+			wall.setWall(movex, movey, '@');
+		}
+	}
+	return true;
+}
