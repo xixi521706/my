@@ -1,0 +1,55 @@
+#include <iostream>
+#include <list>
+#include <forward_list>
+#include <string>
+
+using namespace std;
+
+class Person{
+public:
+	Person(string name, int age, int height){
+		this->_name = name;
+		this->_age = age;
+		this->_height = height;
+	}
+	bool operator==(const Person & p){               //remove函数必须加const修饰
+		if (this->_name == p._name && this->_age == p._age && this->_height == p._height)
+			return true;
+		return false;
+	}
+	string _name;
+	int _age;
+	int _height;
+};
+bool personcompare(Person & p1, Person& p2){
+	if (p1._age > p2._age){
+		return true;
+	}
+	else if (p1._age == p2._age){
+		if (p1._height > p2._height)
+			return true;
+		else
+			return false;
+	}
+	else
+		return false;
+}
+int main(){
+	Person p1("dzz", 31, 172);
+	Person p2("dqq", 33, 175);
+	Person p3("dyc", 61, 168);
+	Person p4("xyh", 57, 160);
+	Person p5("dpp", 31, 165);
+	list<Person>mylist;
+	mylist.push_back(p1);
+	mylist.push_back(p2);
+	mylist.push_back(p3);
+	mylist.push_back(p4);
+	mylist.push_back(p5);
+	mylist.sort(personcompare);               //sort方法调用了回调函数
+	mylist.remove(p5);
+	for (list<Person>::iterator it = mylist.begin(); it != mylist.end(); it++){
+		cout << "姓名:" << it->_name << "  " << "年龄:" << it->_age << "  " << "身高:" << it->_height << endl;
+	}
+	return 0;
+}
